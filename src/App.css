@@ -16,7 +16,22 @@
 .content {
   background-color: #FFF;
   padding: 20px;
+}
+
+div {
+  width: 100%;
+}
+
+.row {
   display: flex;
   flex-direction: row;
-  justify-content: space-evenly;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+  flex-basis: 100%;
+  flex: 1;
 }
