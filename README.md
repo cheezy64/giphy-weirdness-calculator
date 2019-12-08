@@ -2,7 +2,8 @@
 This calculates your "weirdness" based on what GIFs you ultimately like
 
 # Installation
-Run `npm install` and replace my GIPHY key with yours in the `.env` file
+* Run `npm install` and replace my GIPHY key with yours in the `.env` file
+* Run `npm start` and navigate to `http://localhost:3000`
 
 # Thought Process
 ## State
@@ -25,3 +26,4 @@ Very easy to test since it's testing that certain inputs produce certain states.
 # TODO
 * Fix up CSS so that images are bound to certain dimensions
 * Write tests
+* Cache images.  I originally thought I could leverage the browser to cache it, but it doesn't seem to be a guarantee.
