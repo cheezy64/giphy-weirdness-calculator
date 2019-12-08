@@ -14,7 +14,7 @@ const WeirdnessCalculator = ({ liked = [] }) => {
       <div className='selection-liked'>
         {
           liked.map(ele => (
-            <div className='gif-selection'>
+            <div className='gif-selection' key={ele.imgUrl}>
               <Image
                 header={ele.imgHeader}
                 imageUrl={ele.imgUrl} />

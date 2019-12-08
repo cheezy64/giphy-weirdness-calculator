@@ -21,6 +21,7 @@ const SelectionContainer = ({ liked = [], onUnlike }) => {
         {
           liked.map(ele => 
             <Selection 
+              key={ele.imgUrl}
               imgHeader={ele.imgHeader}
               imgUrl={ele.imgUrl}
               onUnlike={ () => onUnlike(ele.imgHeader) } />
