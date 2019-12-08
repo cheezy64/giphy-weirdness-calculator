@@ -29,9 +29,20 @@ div {
   width: 100%;
 }
 
-.column {
+.column-1w {
   display: flex;
   flex-direction: column;
   flex-basis: 100%;
   flex: 1;
+}
+
+.column-2w {
+  display: flex;
+  flex-direction: column;
+  flex-basis: 100%;
+  flex: 2;
+}
+
+.selection-liked {
+  display: flex;
 }

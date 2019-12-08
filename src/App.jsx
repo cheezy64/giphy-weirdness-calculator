@@ -25,10 +25,10 @@ function App({ reduxStore }) {
               <Switch>
                 <Route exact path='/'>
                   <div className='row'>
-                    <div className='column'>
+                    <div className='column-1w'>
                       <SearchContainer />
                     </div>
-                    <div className='column'>
+                    <div className='column-2w'>
                       <SelectionContainer />
                     </div>
                   </div>
