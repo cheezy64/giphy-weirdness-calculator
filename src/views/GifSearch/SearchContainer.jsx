@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 
 import { giphyTranslatePhraseToGif } from '../../remote/giphy';
 import { REQUIRED_LIKES } from '../../config';
@@ -8,12 +9,15 @@ import Search from './Search';
 import Slider from '../common/Slider';
 import Image from '../common/Image';
 
+import { weirdnessCalculatorOperations } from '../../state/ducks/weirdnessCalculator';
+
 class SearchContainer extends Component {
   state = {
     searchValue: '',
     submittedSearchValue: '',
     submittedImgUrl: '',
     weirdnessValue: 1,
+    shouldDisableLike: true,
   };
 
   onSearchChange = (evt) => {
@@ -40,6 +44,16 @@ class SearchContainer extends Component {
     });
   }
 
+  componentDidUpdate(prevProps) {
+    const { submittedSearchValue } = this.state;
+    const { liked: likedPrev = [] } = prevProps;
+    const { liked } = this.props;
+    const shouldDisableLike = liked.some(ele => ele && ele.imgHeader === submittedSearchValue );
+    if (likedPrev.length !== liked.length || shouldDisableLike !== this.state.shouldDisableLike) {
+      this.setState({ shouldDisableLike });
+    }
+  }
+
   render() {
     const {
       onSearchChange,
@@ -52,12 +66,12 @@ class SearchContainer extends Component {
       weirdnessValue,
       submittedSearchValue,
       submittedImgUrl,
+      shouldDisableLike,
     } = this.state;
 
     const { likedGifs = [], onLike } = this.props;
 
-    const shouldDisableSubmit = (!searchValue) || (likedGifs.some(ele => ele && ele.searchValue === searchValue));
-    const shouldDisableLike = !!submittedSearchValue;
+    const shouldDisableSearch = (!searchValue) || (likedGifs.some(ele => ele && ele.imgHeaderj === searchValue));
 
     return (
       <div className='search-container'>
@@ -66,7 +80,7 @@ class SearchContainer extends Component {
           <p>When you find a GIF you like, press the <strong>Like</strong> button. Once you like {REQUIRED_LIKES} GIFs, we'll show you how weird you are.</p>
           <br />
           <Search
-            disabled={shouldDisableSubmit}
+            disabled={shouldDisableSearch}
             onChange={onSearchChange}
             onSubmit={onSubmitChange}
             value={searchValue} />
@@ -87,7 +101,16 @@ class SearchContainer extends Component {
                       <Image
                         header={submittedSearchValue}
                         imageUrl={submittedImgUrl} />
-                      <button type='button' onClick={onLike} disabled={shouldDisableLike}>Like!</button>
+                      <button 
+                        type='button' 
+                        onClick={() => onLike({
+                          imgHeader: submittedSearchValue,
+                          imgUrl: submittedImgUrl,
+                          weirdness: weirdnessValue,
+                        })} 
+                        disabled={shouldDisableLike}>
+                        Like!
+                      </button>
                     </div>
                   </React.Fragment>
                 )
@@ -103,6 +126,14 @@ class SearchContainer extends Component {
 SearchContainer.propTypes = {
   likedGifs: PropTypes.array,
   onLike: PropTypes.func.isRequired,
-}
+};
 
-export default SearchContainer;
+const mapStateToProps = state => ({
+  liked: state.weirdnessCalculatorState.likes.liked,
+});
+
+const mapDispatchToProps = {
+  onLike: weirdnessCalculatorOperations.giphyLike,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(SearchContainer);

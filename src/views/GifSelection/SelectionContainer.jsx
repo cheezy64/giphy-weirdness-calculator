@@ -1,14 +1,18 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 
 import { REQUIRED_LIKES } from '../../config';
 
 import Selection from './Selection';
 
+import { weirdnessCalculatorOperations } from '../../state/ducks/weirdnessCalculator';
+
 class SelectionContainer extends Component {
   render() {
     const { 
       liked = [],
+      onUnlike,
     } = this.props;
     const remainingRequiredLikes = REQUIRED_LIKES - liked.length;
 
@@ -21,7 +25,7 @@ class SelectionContainer extends Component {
               <Selection 
                 imgHeader={ele.imgHeader}
                 imgUrl={ele.imgUrl}
-                onUnlike={ele.onUnlike} />
+                onUnlike={ () => onUnlike(ele.imgHeader) } />
             )
           }
         </div>
@@ -34,6 +38,15 @@ class SelectionContainer extends Component {
 
 SelectionContainer.propTypes = {
   liked: PropTypes.array,
+  onUnlike: PropTypes.func.isRequired,
 }
 
-export default SelectionContainer;
+const mapStateToProps = state => ({
+  liked: state.weirdnessCalculatorState.likes.liked,
+});
+
+const mapDispatchToProps = {
+  onUnlike: weirdnessCalculatorOperations.giphyUnlike,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(SelectionContainer);
