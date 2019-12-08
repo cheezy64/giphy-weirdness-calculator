@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 
 import Image from '../common/Image';
 
@@ -30,4 +31,8 @@ WeirdnessCalculator.propTypes = {
   liked: PropTypes.array,
 }
 
-export default WeirdnessCalculator;
+const mapStateToProps = state => ({
+  liked: state.weirdnessCalculatorState.likes.liked,
+});
+
+export default connect(mapStateToProps)(WeirdnessCalculator);
