@@ -1,0 +1,2 @@
+// No interesting tests since we would be testing that the action produces that the action creators return the right action.
+// TODO if we do use redux-thunk, use `redux-mock-store`, mock promises, and check expections
