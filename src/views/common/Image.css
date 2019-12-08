@@ -1,0 +1,17 @@
+div.image {
+  min-width:  40%;
+  width:      40%;
+  max-width:  40%;
+  min-height: 70%;
+  height:     70%;
+  max-height: 70%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+div.image img {
+  width:auto;
+  height: auto;
+  max-width: 100%;
+  max-height: 100%;
+}
