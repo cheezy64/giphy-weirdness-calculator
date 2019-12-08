@@ -76,19 +76,21 @@ class SearchContainer extends Component {
     return (
       <div className='search-container'>
         <div className='row'>
-          <p>Find out how weird you are by selecting the GIFs that make you laugh. We'll show you the least weird ones to start, but you can move the slider to make them weirder.</p>
-          <p>When you find a GIF you like, press the <strong>Like</strong> button. Once you like {REQUIRED_LIKES} GIFs, we'll show you how weird you are.</p>
-          <br />
-          <Search
-            disabled={shouldDisableSearch}
-            onChange={onSearchChange}
-            onSubmit={onSubmitChange}
-            value={searchValue} />
-          <Slider
-            min={1}
-            max={10}
-            onChange={onWeirdnessChange} />
-          <p>Weirdness: {weirdnessValue}</p>
+          <div>
+            <p>Find out how weird you are by selecting the GIFs that make you laugh. We'll show you the least weird ones to start, but you can move the slider to make them weirder.</p>
+            <p>When you find a GIF you like, press the <strong>Like</strong> button. Once you like {REQUIRED_LIKES} GIFs, we'll show you how weird you are.</p>
+            <br />
+            <Search
+              disabled={shouldDisableSearch}
+              onChange={onSearchChange}
+              onSubmit={onSubmitChange}
+              value={searchValue} />
+            <Slider
+              min={1}
+              max={10}
+              onChange={onWeirdnessChange} />
+            <p>Weirdness: {weirdnessValue}</p>
+          </div>
         </div>
         <div className='row'>
           <div>
