@@ -1,4 +1,6 @@
 import React from 'react';
+import { Provider as ReduxProvider } from 'react-redux';
+
 import Header from './views/Header/Header';
 import SearchContainer from './views/GifSearch/SearchContainer';
 import SelectionContainer from './views/GifSelection/SelectionContainer';
@@ -28,19 +30,21 @@ function App({ reduxStore }) {
     weirdness: 3
   }];
   return (
-    <div className='App'>
-      <Header title='Weirdness Calculator' />
-      <div className='content'>
-        <div className='row'>
-          <div className='column'>
-            <SearchContainer />
-          </div>
-          <div className='column'>
-            <SelectionContainer liked={liked} />
+    <ReduxProvider store={reduxStore}>
+      <div className='App'>
+        <Header title='Weirdness Calculator' />
+        <div className='content'>
+          <div className='row'>
+            <div className='column'>
+              <SearchContainer />
+            </div>
+            <div className='column'>
+              <SelectionContainer liked={liked} />
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </ReduxProvider>
   );
 }
 
