@@ -5,6 +5,7 @@ import {
   Switch,
   Route,
 } from 'react-router-dom';
+import ErrorBoundary from 'react-error-boundary';
 
 import Header from './views/Header/Header';
 import SearchContainer from './views/GifSearch/SearchContainer';
@@ -15,28 +16,30 @@ import './App.css';
 
 function App({ reduxStore }) {
   return (
-    <ReduxProvider store={reduxStore}>
-      <Router>
-        <div className='App'>
-          <Header title='Weirdness Calculator' />
-          <div className='content'>
-            <Switch>
-              <Route exact path='/'>
-                <div className='row'>
-                  <div className='column'>
-                    <SearchContainer />
+    <ErrorBoundary>
+      <ReduxProvider store={reduxStore}>
+        <Router>
+          <div className='App'>
+            <Header title='Weirdness Calculator' />
+            <div className='content'>
+              <Switch>
+                <Route exact path='/'>
+                  <div className='row'>
+                    <div className='column'>
+                      <SearchContainer />
+                    </div>
+                    <div className='column'>
+                      <SelectionContainer />
+                    </div>
                   </div>
-                  <div className='column'>
-                    <SelectionContainer />
-                  </div>
-                </div>
-              </Route>
-              <Route path='/results' component={WeirdnessCalculator} />
-            </Switch>
+                </Route>
+                <Route path='/results' component={WeirdnessCalculator} />
+              </Switch>
+            </div>
           </div>
-        </div>
-      </Router>
-    </ReduxProvider>
+        </Router>
+      </ReduxProvider>
+    </ErrorBoundary>
   );
 }
 
